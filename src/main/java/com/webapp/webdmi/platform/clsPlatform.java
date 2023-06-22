@@ -50,7 +50,7 @@ public class clsPlatform {
             
             //User variable applicationProps D:\downloads\NetBeansProjects\JavaWorkshop\build\classes\resources\
             String strEnvnameapplicationprops = env.get(strEnv);
-
+/*
             //2a. The application loads the default properties from a well-known location.
             String strApplicationpropspath = strEnvnameapplicationprops + "application.properties";
             FileInputStream in = new FileInputStream(strApplicationpropspath);
@@ -87,7 +87,7 @@ public class clsPlatform {
             // display new properties
             System.getProperties().list(System.out);
             propFile.close();
-
+*/
 
         } catch (Exception e) {
             log.info("Exception" + e.toString());

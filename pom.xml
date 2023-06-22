@@ -41,4 +41,28 @@
             </plugin>
 	</plugins>
   </build>
+    <repositories>
+        <repository>
+            <id>myFeed</id>
+            <url>https://pkgs.dev.azure.com/narayanpunekar/_packaging/myFeed/maven/v1</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+    <distributionManagement>
+        <repository>
+            <id>myFeed</id>
+            <url>https://pkgs.dev.azure.com/narayanpunekar/_packaging/myFeed/maven/v1</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </distributionManagement>
 </project>

@@ -25,7 +25,7 @@ public class GreetByName extends TagSupport {
     public int doStartTag() throws JspException {
         try {
             JspWriter out = pageContext.getOut();
-            out.print("Hello" + firstName);
+            out.print("Hello " + firstName);
         } catch (IOException e) {
             log.info("Exception" + e.toString());
             log.warning("Exception" + e.toString());

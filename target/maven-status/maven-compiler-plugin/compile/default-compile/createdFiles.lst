@@ -1,0 +1,6 @@
+ourtags\GreetByName.class
+com\webapp\webdmi\platform\clsPlatform.class
+com\webapp\webdmi\servlet\LoginServlet.class
+com\webapp\webdmi\dao\webdmiDao.class
+ourtags\ChangeFont.class
+ourtags\CurrentTime.class
