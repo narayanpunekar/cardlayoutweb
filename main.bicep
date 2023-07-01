@@ -1,10 +1,10 @@
 @description('Username for the Virtual Machine.')
-param adminUsername string = Student
+param adminUsername string = ${{ secrets.ADMINUSERNAME }}
 
 @description('Password for the Virtual Machine.')
 @minLength(12)
 @secure()
-param adminPassword string = Pa55w.rd1234
+param adminPassword string = ${{ secrets.ADMINPASSWORD }}
 
 @description('Unique DNS Name for the Public IP used to access the Virtual Machine.')
 param dnsLabelPrefix string = toLower('${vmName}-${uniqueString(resourceGroup().id, vmName)}')
