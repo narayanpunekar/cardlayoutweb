@@ -19,5 +19,5 @@ jobs:
                   subscriptionId: 948addee-9de2-4864-b896-abb590927f3e
                   resourceGroupName: Bicep
                   template: ./main.bicep
-                  parameters: storagePrefix=tst
+                  #parameters: storagePrefix=tst
                   failOnStdErr: false
