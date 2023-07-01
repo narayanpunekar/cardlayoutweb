@@ -5,7 +5,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             # Checkout code
-            - uses: actions/checkout@main
+            - uses: actions/checkout@br_2306_f1_cardlayoutweb
 
               # Log into Azure
             - uses: azure/login@v1
