@@ -12,6 +12,24 @@
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>ITDepartmentServlet</servlet-name>
+        <description>ITDepartment Servlet</description>
+        <servlet-class>com.webapp.webdmi.servlet.ITDepartmentServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ITDepartmentServlet</servlet-name>
+        <url-pattern>/productbacklog</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>SolutionsDepartmentServlet</servlet-name>
+        <description>Solutions Department Servlet</description>
+        <servlet-class>com.webapp.webdmi.servlet.SolutionsDepartmentServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SolutionsDepartmentServlet</servlet-name>
+        <url-pattern>/solutions</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

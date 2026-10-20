@@ -6,6 +6,7 @@
 package com.webapp.webdmi.dao;
 
 import com.webapp.webdmi.platform.clsPlatform;
+import com.webapp.webdmi.platform.clsXmlProcessor;
 import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -55,4 +56,18 @@ public class webdmiDao {
         }
     }
 
+    /**
+     * 
+     */
+    public static void fnProductBacklog(String strFirstName, String strLastName) {
+        try {
+            //clsXmlProcessor.fnProcessRequest(strFirstName, strLastName);
+            log.info("fnProductBacklog");
+        } catch (Exception e) {
+            log.info("Exception" + e.toString());
+            log.warning("Exception" + e.toString());
+            e.printStackTrace();
+            throw new ExceptionInInitializerError(e.toString());
+        }
+    }
 }

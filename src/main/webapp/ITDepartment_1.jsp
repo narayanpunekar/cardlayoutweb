@@ -26,7 +26,7 @@
         <title>IT Department</title>
     </head>
     <body>
-        <form name="frmItdepartment_1" id="frmItdepartment_1" method="post">
+        <form name="frmItdepartment_1" id="frmItdepartment_1" action="productbacklog" method="post">
             <center>
                 <table><tr>
                         <td><%@include file="/TheHeader.jsp" %></td>
@@ -39,28 +39,28 @@
                 <table align="center" width="100%" cellspacing="2" cellpadding="2">
                     <tr>
                         <td align="right">First Name:</td>
-                        <td><input type="text" id="txtFirstName" name="txtFirstName" align="left" size="25" value="<%=strFirstName%>" disabled="true"/></td>
+                        <td><input type="text" id="txtFirstName" name="txtFirstName" align="left" size="25" value="<%=strFirstName%>"/></td>
                         <td align="right">Last Name:</td>
-                        <td><input type="text" id="txtLastName" name="txtLastName" align="left" size="25" value="<%=strLastName%>" disabled="true"/></td>
+                        <td><input type="text" id="txtLastName" name="txtLastName" align="left" size="25" value="<%=strLastName%>"/></td>
                     </tr>
                     <tr>
                         <td align="right">E-mail:</td>
-                        <td><input type="text" id="txtEmail" name="txtEmail" align="left" size="25" value="<%=strEmail%>" disabled="true"/></td>
+                        <td><input type="text" id="txtEmail" name="txtEmail" align="left" size="25" value="<%=strEmail%>"/></td>
                         <td align="right">Phone:</td>
-                        <td><input type="text" id="txtPhone" name="txtPhone" align="left" size="15" value="<%=strPhone%>" disabled="true"/></td>
+                        <td><input type="text" id="txtPhone" name="txtPhone" align="left" size="15" value="<%=strPhone%>"/></td>
                     </tr>
                     <tr>
                         <td align="right">Software:</td>
                         <td>
-                            <input type="checkbox" id="chcWord" name="chcWord" value="Word" <%if("Word".equals(strWord)) {%> checked <% } %>/>
-                            <input type="checkbox" id="chcExcel" name="chcExcel" value="Excel" <%if("Excel".equals(strExcel)) {%> checked <% } %>/>
-                            <input type="checkbox" id="chcPowerpoint" name="chcPowerpoint" value="Powerpoint" <%if("Powerpoint".equals(strPowerpoint)) {%> checked <% } %>/>
-                            <input type="checkbox" id="chcOutlook" name="chcOutlook" value="Outlook" <%if("Outlook".equals(strOutlook)) {%> checked <% } %>/>
-                            <input type="checkbox" id="chcVarious" name="chcVarious" value="Various" <%if("Various".equals(strVarious)) {%> checked <% } %>/>
+                            <input type="checkbox" id="chcWord" name="chcWord" value="Word" <%if("Word".equals(strWord)) {%> checked <% } %>/>Word&nbsp;
+                            <input type="checkbox" id="chcExcel" name="chcExcel" value="Excel" <%if("Excel".equals(strExcel)) {%> checked <% } %>/>Excel&nbsp;
+                            <input type="checkbox" id="chcPowerpoint" name="chcPowerpoint" value="Powerpoint" <%if("Powerpoint".equals(strPowerpoint)) {%> checked <% } %>/>Powerpoint&nbsp;
+                            <input type="checkbox" id="chcOutlook" name="chcOutlook" value="Outlook" <%if("Outlook".equals(strOutlook)) {%> checked <% } %>/>Outlook&nbsp;
+                            <input type="checkbox" id="chcVarious" name="chcVarious" value="Various" <%if("Various".equals(strVarious)) {%> checked <% } %>/>Various&nbsp;
                         </td>
                         <td align="right">Operating System:</td>
                         <td>
-                            <select id="selOs" name="selOs" size="1" disabled="true">
+                            <select id="selOs" name="selOs" size="1">
                                 <option value="Windows" <%if("Windows".equals(strOs)) {%> selected <% } %>>Windows</option>
                                 <option value="Unix" <%if("Unix".equals(strOs)) {%> selected <% } %>>Unix</option>
                                 <option value="Linux" <%if("Linux".equals(strOs)) {%> selected <% } %>>Linux</option>
@@ -73,7 +73,7 @@
             </center>
             <br>Problem Description:
             <br>
-            <textarea id="txaProblemDescription" name="txaProblemDescription" rows="4" cols="50" disabled="true"><%=strProblemDescription%></textarea>
+            <textarea id="txaProblemDescription" name="txaProblemDescription" rows="4" cols="60"><%=strProblemDescription%></textarea>
 
             <center>
                 <hr>
@@ -87,7 +87,7 @@
                     </tr>
                     <tr>
                         <td valign="top"><b>Phone:Primary</b></td>
-                        <td><input type="text" id="txtPhoneOne" name="txtPhoneOne" size="15"/></td>
+                        <td><input type="text" id="txtPhoneOne" name="txtPhoneOne" size="15" value="<%=strPhone%>"/></td>
                         <td valign="top"><b>Phone:Secondary</b></td>
                         <td><input type="text" id="txtPhoneTwo" name="txtPhoneTwo" size="15"/></td>
                     </tr>

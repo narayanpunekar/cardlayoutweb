@@ -9,13 +9,16 @@
 <%@page errorPage="myErrors.jsp"%>
 <!DOCTYPE html>
 <% 
-    String strWhereTo = request.getParameter("rdoWhereTo");
+    String strWhereTo = "";
+    strWhereTo = request.getParameter("rdoWhereTo");
     out.println(strWhereTo);
 %>
 <%  if("IT Department".equals(strWhereTo)) { %>
         <jsp:forward page="/ITDepartment.jsp"/>
 <%  } else if("Solutions Department".equals(strWhereTo)) { %>
         <jsp:forward page="/SolutionsDepartment.jsp"/>
+<%  } else if("Solutions Department_1".equals(strWhereTo)) { %>
+        <jsp:forward page="/SolutionsDepartment_1.jsp"/>
 <%  } else if("Product Backlog".equals(strWhereTo)) { %>
         <jsp:forward page="/ProductBacklog.jsp"/>
 <%  } else if("Pie Chart".equals(strWhereTo)) { %>

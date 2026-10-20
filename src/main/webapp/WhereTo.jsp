@@ -6,6 +6,29 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page errorPage="myErrors.jsp"%>
+<%
+    String strFirstName = request.getParameter("txtFirstName");
+    String strLastName = request.getParameter("txtLastName");
+    String strEmail = request.getParameter("txtEmail");
+    String strPhone = request.getParameter("txtPhone");
+    String strWord = request.getParameter("chcWord");
+    String strExcel = request.getParameter("chcExcel");
+    String strPowerpoint = request.getParameter("chcPowerpoint");
+    String strOutlook = request.getParameter("chcOutlook");
+    String strVarious = request.getParameter("chcVarious");
+    String strOs = request.getParameter("selOs");
+    String strProblemDescription = request.getParameter("txaProblemDescription");
+    String strPhoneOne = request.getParameter("txtPhoneOne");
+    String strPhoneTwo = request.getParameter("txtPhoneTwo");
+    String strAddress = request.getParameter("txtAddress");
+    String strZipCode = request.getParameter("txtZipCode");
+    String rdoFaxPager = request.getParameter("rdoFaxPager");
+    String strFaxPager = request.getParameter("txtFaxPager");
+    String strUserName = request.getParameter("txtUserName");
+    String rdoUserType = request.getParameter("rdoUserType");
+    String strPassword = request.getParameter("txtPassword");
+    String rdoNewsletters = request.getParameter("rdoNewsletters");
+%>
 <!DOCTYPE html>
 <html>
     <head>

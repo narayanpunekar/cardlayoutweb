@@ -13,7 +13,7 @@
         <title>Login Page</title>
     </head>
     <body>
-        <form name="frmLogin" id="frmLogin" action="login" method="post">
+        <form name="frmLogin" id="frmLogin" action="login" method="post" enctype="multipart/form-data">
             <center>
                 <table><tr>
                         <td><%@include file="/TheHeader.jsp" %></td>
@@ -38,6 +38,12 @@
                         <td align="center" colspan="2">
                             <input type="submit" value="Login"/>
                             <input type="reset" value="Reset"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top">
+                            <b><label for="File:">File:</label></b><br>
+                            <input type="file" name="file" id="file"><br>
                         </td>
                     </tr>
                 </table>

@@ -11,7 +11,7 @@
                 <%@taglib uri="WEB-INF/tlds/cardlayoutweb-taglib.tld" prefix="sample" %>
                 <sample:bigNBold>
                     Excuse me. 
-                    <sample:hello firstName="Toots" />&nbsp;
+                    <sample:hello firstName=" " />&nbsp;
                     <sample:time/>
                 </sample:bigNBold>
             </td>
