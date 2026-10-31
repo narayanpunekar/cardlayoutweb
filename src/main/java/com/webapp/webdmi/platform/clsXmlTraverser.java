@@ -58,7 +58,7 @@ public class clsXmlTraverser {
         NodeList nodelistChildren = null;
         Node nodeChild = null;
 
-        log.info(node.getNodeName() + " gNN ");
+        log.info(node.getNodeName() + " NodeName ");
         lstNodes.add(node);
         mapNodes.put(node, node);
         if(node.hasChildNodes()) {
@@ -66,7 +66,7 @@ public class clsXmlTraverser {
             for (int i=0; i<nodelistChildren.getLength(); i++) {
                 nodeChild = nodelistChildren.item(i);
                 if (nodeChild.getNodeType() == Node.TEXT_NODE) {
-                    log.info(nodeChild.getTextContent() + " cNN ");
+                    log.info(nodeChild.getTextContent() + " ChildNodeName ");
                     lstNodes.add(nodeChild);
                     mapNodes.put(nodeChild, nodeChild);
                 //} else if (nodeChild.getNodeType() == Node.ATTRIBUTE_NODE) {

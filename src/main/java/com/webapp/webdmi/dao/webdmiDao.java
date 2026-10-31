@@ -6,12 +6,7 @@
 package com.webapp.webdmi.dao;
 
 import com.webapp.webdmi.platform.clsPlatform;
-import com.webapp.webdmi.platform.clsXmlProcessor;
 import java.util.Scanner;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import static java.lang.System.out;
 import java.util.logging.Logger;

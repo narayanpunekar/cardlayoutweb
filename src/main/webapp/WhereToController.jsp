@@ -27,4 +27,6 @@
         <jsp:forward page="/BarChart.jsp"/>
 <%  } else if("LAN/WLAN Chat".equals(strWhereTo)) { %>
         <jsp:forward page="/Chat.jsp"/>
+<%  } else if("Upload File".equals(strWhereTo)) { %>
+        <jsp:forward page="/UploadFile.jsp"/>
 <%  } %>

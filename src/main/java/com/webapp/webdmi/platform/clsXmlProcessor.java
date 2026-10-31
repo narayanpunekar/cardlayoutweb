@@ -22,6 +22,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import java.util.logging.Logger;
 import java.util.HashMap;
+//import java.util.Scanner;
 
 /**
  *
@@ -44,7 +45,8 @@ public class clsXmlProcessor {
         try {
             dbFactory = DocumentBuilderFactory.newInstance();
             documentBuilder = dbFactory.newDocumentBuilder();
-            xmlDocument = documentBuilder.parse(new File("ProductBacklog.xml"));
+            //xmlDocument = documentBuilder.parse(new File("ProductBacklog.xml"));
+            xmlDocument = documentBuilder.parse(clsXmlProcessor.class.getClassLoader().getResourceAsStream("ProductBacklog.xml"));
             elemProductBacklog = xmlDocument.getDocumentElement();
         } catch(Exception e) {
             xmlDocument = documentBuilder.newDocument();
@@ -234,7 +236,16 @@ public class clsXmlProcessor {
 
             dbFactory = DocumentBuilderFactory.newInstance();
             documentBuilder = dbFactory.newDocumentBuilder();
-            xmlDocument = documentBuilder.parse(new File("ProductBacklog.xml"));
+            //xmlDocument = documentBuilder.parse(new File("ProductBacklog.xml"));
+            //Scanner scanner = new Scanner(clsXmlProcessor.class.getClassLoader().getResourceAsStream("ProductBacklog.xml"));
+            //log.info("scanner: " + scanner.toString());
+            //scanner.useDelimiter("(/><)(><)");
+            //while (scanner.hasNext()) {
+                //log.info(scanner.next());
+                //xmlDocument = documentBuilder.parse(scanner.next());
+            //}
+            
+            xmlDocument = documentBuilder.parse(clsXmlProcessor.class.getClassLoader().getResourceAsStream("ProductBacklog.xml"));
             xpath = XPathFactory.newInstance().newXPath();
 
             String strFirstName = "/ProductBacklog/SNo[@cnt=" + iCnt + "]/FirstName";
@@ -369,7 +380,8 @@ public class clsXmlProcessor {
         try {
             dbFactory = DocumentBuilderFactory.newInstance();
             documentBuilder = dbFactory.newDocumentBuilder();
-            xmlDocumentPieChart = documentBuilder.parse(new File("PieChartData.xml"));
+            //xmlDocumentPieChart = documentBuilder.parse(new File("PieChartData.xml"));
+            xmlDocumentPieChart = documentBuilder.parse(clsXmlProcessor.class.getClassLoader().getResourceAsStream(("PieChartData.xml")));
             elemPieChartData = xmlDocumentPieChart.getDocumentElement();
         } catch(Exception e) {
             xmlDocumentPieChart = documentBuilder.newDocument();
@@ -378,7 +390,8 @@ public class clsXmlProcessor {
             e.printStackTrace();
         } finally {
             try {
-                xmlDocument = documentBuilder.parse(new File("ProductBacklog.xml"));
+                //xmlDocument = documentBuilder.parse(new File("ProductBacklog.xml"));
+                xmlDocument = documentBuilder.parse(clsXmlProcessor.class.getClassLoader().getResourceAsStream(("ProductBacklog.xml")));
                 XPath xpath = XPathFactory.newInstance().newXPath();
 
                 //new <SNo><SolutionDescription>, increment <SolvedCnt>

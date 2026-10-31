@@ -6,13 +6,6 @@
 package com.webapp.webdmi.servlet;
 
 import com.webapp.webdmi.dao.webdmiDao;
-import com.webapp.webdmi.platform.clsXmlTraverser;
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.FileNotFoundException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,36 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import java.util.logging.Logger;
-import javax.servlet.http.Part;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.Scanner;
-//import java.util.Scanner;
-import javax.servlet.annotation.MultipartConfig;
-import org.w3c.dom.Document;
 
 /**
  *
  * @author narayan.punekar@yahoo.com
  */
-@MultipartConfig
 public class LoginServlet extends HttpServlet {
     private static final Logger log = Logger.getLogger(LoginServlet.class.getName());
-
-    private String getFileName(Part filePart) {
-        String strPartHeader = filePart.getHeader("content-disposition");
-        log.info("Part Header = " + strPartHeader);
-        for (String content : filePart.getHeader("content-disposition").split(";")) {
-            if (content.trim().startsWith("filename")) {
-                return content.substring(
-                    content.indexOf('=') + 1).trim().replace("\"", "");
-            }
-        }
-        return null;
-    }
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -80,42 +51,7 @@ public class LoginServlet extends HttpServlet {
         }
         */
 
-        OutputStream out = null;
-        InputStream fileContent = null;
-        PrintWriter writer = null;
-        Scanner s = null;
-        DataInputStream in = null;
         try {
-            Part filePart = request.getPart("file");
-            String strFilename = getFileName(filePart);
-            log.info("Part strFilename=" + strFilename);
-
-            s = new Scanner(new BufferedReader(new FileReader(strFilename)));
-            s.useDelimiter("(/><)(><)");
-            while (s.hasNext()) {
-                log.info("Scanner strFilename=" + s.next());
-            }
-
-            in = new DataInputStream(new BufferedInputStream(new FileInputStream(strFilename)));
-            String strLine;
-            while ((strLine = in.readLine())!=null) {
-                log.info("strLine=" + strLine);
-            }
-           
-            Document xmlDocument = clsXmlTraverser.fnLoadXml(strFilename);
-            log.info(xmlDocument.getFirstChild().getNodeName() + " fc ");
-            clsXmlTraverser.fnTraverseNode(xmlDocument.getFirstChild());
-            clsXmlTraverser.fnIterator();
-        
-            writer = response.getWriter();
-            fileContent = filePart.getInputStream();
-            int read = 0;
-            byte[] bytes = new byte[1024];
-            while ((read = fileContent.read(bytes)) != -1) {
-                String strByteString = new String(bytes, StandardCharsets.UTF_8);
-                log.info("read=" + read + " bytes=" + strByteString);
-            }
-
             HttpSession session = request.getSession();
             String strUsername = request.getParameter("txtEmail");
             String strPassword = request.getParameter("txtPassword");
@@ -125,18 +61,8 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("employee", null);
 
             request.getRequestDispatcher("/WhereTo.jsp").forward(request, response);
-        } catch (FileNotFoundException fne) {
-            log.info("ERROR: " + fne.getMessage());
-        } finally {
-            if (out != null) {
-                out.close();
-            }
-            if (fileContent != null) {
-                fileContent.close();
-            }
-            if (writer != null) {
-                writer.close();
-            }
+        } catch (Exception e) {
+            log.info("ERROR: " + e.getMessage());
         }
     }
 

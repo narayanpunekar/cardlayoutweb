@@ -30,6 +30,15 @@
         <servlet-name>SolutionsDepartmentServlet</servlet-name>
         <url-pattern>/solutions</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>FileUploadServlet</servlet-name>
+        <description>Upload File Servlet</description>
+        <servlet-class>com.webapp.webdmi.servlet.FileUploadServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FileUploadServlet</servlet-name>
+        <url-pattern>/fileupload</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

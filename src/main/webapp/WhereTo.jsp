@@ -54,6 +54,7 @@
                             <input type="radio" id="rdoWhereTo" name="rdoWhereTo" value="Pie Chart"/>Pie Chart&nbsp;<br>
                             <input type="radio" id="rdoWhereTo" name="rdoWhereTo" value="Bar Chart"/>Bar Chart&nbsp;<br>
                             <input type="radio" id="rdoWhereTo" name="rdoWhereTo" value="LAN/WLAN Chat"/>LAN/WLAN Chat&nbsp;<br>
+                            <input type="radio" id="rdoWhereTo" name="rdoWhereTo" value="Upload File"/>Upload File&nbsp;<br>
                         </td>
                     </tr>
                     <tr>
