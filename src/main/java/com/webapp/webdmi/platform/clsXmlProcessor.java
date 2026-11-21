@@ -231,6 +231,7 @@ public class clsXmlProcessor {
                 Transformer transformer = TransformerFactory.newInstance().newTransformer();
                 //transformer.transform(new DOMSource(xmlDocument), new StreamResult(new File("ProductBacklog.xml")));
                 transformer.transform(new DOMSource(xmlDocument), new StreamResult(out));
+                new clsEncryptFile();
 
                 in.close();
                 out.close();
@@ -477,6 +478,7 @@ public class clsXmlProcessor {
                 Transformer transformer = TransformerFactory.newInstance().newTransformer();
                 //transformer.transform(new DOMSource(xmlDocument), new StreamResult(new File("ProductBacklog.xml")));
                 transformer.transform(new DOMSource(xmlDocument), new StreamResult(out));
+                new clsEncryptFile();
 
                 DataOutputStream outPieChart = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(pathToFilePieChart.toAbsolutePath().toString())));
                 Transformer transformerPieChart = TransformerFactory.newInstance().newTransformer();

@@ -38,10 +38,10 @@ public class clsEncryptFile {
             Cipher cipher = Cipher.getInstance(transformation);
             cipher.init(Cipher.ENCRYPT_MODE, secretKey);
 
-            Path pathToFile = Paths.get("target/ProductBacklog.xml");
+            Path pathToFile = Paths.get("../webapps/cardlayoutweb/ProductBacklog.xml");
             File plaintext = pathToFile.toFile();
 
-            File ciphertext = Paths.get("target/ProductBacklogCipher").toFile();
+            File ciphertext = Paths.get("../webapps/cardlayoutweb/ProductBacklogCipher").toFile();
             if (ciphertext.exists()) {
                 ciphertext.delete();
             }
@@ -56,6 +56,8 @@ public class clsEncryptFile {
                     cipherOutputStream.write(buffer, 0, length);
                 }
             }
+            
+            //plaintext.delete();
 
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
