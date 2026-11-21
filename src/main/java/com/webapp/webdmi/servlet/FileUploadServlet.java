@@ -5,13 +5,17 @@
  */
 package com.webapp.webdmi.servlet;
 
+//import com.webapp.webdmi.platform.clsFindFile;
+import com.webapp.webdmi.platform.clsXmlProcessor;
 import com.webapp.webdmi.platform.clsXmlTraverser;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +29,12 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.Scanner;
+import java.util.logging.Level;
 //import java.util.Scanner;
 import javax.servlet.annotation.MultipartConfig;
 import org.w3c.dom.Document;
@@ -85,44 +94,64 @@ public class FileUploadServlet extends HttpServlet {
         Scanner s = null;
         DataInputStream in = null;
         try {
-            Part filePart = request.getPart("file");
-            String strFilename = getFileName(filePart);
-            log.info("Part strFilename=" + strFilename);
+            Path pathToFile = Paths.get("../webapps/cardlayoutweb/ProductBacklog.xml");
+            log.info("pathToFile=" + pathToFile.toAbsolutePath().toString());
+            //String pattern = "ProductBacklog.xml";
 
-            s = new Scanner(new BufferedReader(new FileReader(strFilename)));
-            s.useDelimiter("(/><)(><)");
+            //clsFindFile.Finder finder = new clsFindFile.Finder(pattern);
+            //Files.walkFileTree(pathToFile, finder);
+            //finder.done();
+
+            //s = new Scanner(new BufferedReader(new FileReader(strFilename)));
+            s = new Scanner(new BufferedReader(new FileReader(pathToFile.toAbsolutePath().toString())));
+            s.useDelimiter("[><]+");
             while (s.hasNext()) {
                 log.info("Scanner strFilename=" + s.next());
             }
 
-            in = new DataInputStream(new BufferedInputStream(new FileInputStream(strFilename)));
+            //in = new DataInputStream(new BufferedInputStream(new FileInputStream(strFilename)));
+            in = new DataInputStream(new BufferedInputStream(new FileInputStream(pathToFile.toAbsolutePath().toString())));
             String strLine;
             while ((strLine = in.readLine())!=null) {
                 log.info("strLine=" + strLine);
             }
            
-            Document xmlDocument = clsXmlTraverser.fnLoadXml(strFilename);
+            //Document xmlDocument = clsXmlTraverser.fnLoadXml(strFilename);
+            Document xmlDocument = clsXmlTraverser.fnLoadXml(pathToFile.toAbsolutePath().toString());
             log.info(xmlDocument.getFirstChild().getNodeName() + " FirstChild ");
             clsXmlTraverser.fnTraverseNode(xmlDocument.getFirstChild());
             clsXmlTraverser.fnIterator();
         
+            final String strPath = "../webapps/cardlayoutweb/";
+            Part filePart = request.getPart("file");
+            String strFilename = getFileName(filePart);
+            log.info("Part strFilename=" + strFilename);
+            
+            out = null;
+            fileContent = null;
             writer = response.getWriter();
+            log.info("FilePath: " + strPath + File.separator + strFilename);
+            out = new FileOutputStream(new File(strPath + File.separator + strFilename));
             fileContent = filePart.getInputStream();
             int read = 0;
-            byte[] bytes = new byte[1024];
+            //byte[] bytes = new byte[1024];
+            byte[] bytes = new byte[4096];
             while ((read = fileContent.read(bytes)) != -1) {
                 String strByteString = new String(bytes, StandardCharsets.UTF_8);
                 log.info("read=" + read + " bytes=" + strByteString);
+                out.write(bytes, 0, read);
             }
+            log.info("File created: " + strPath + strFilename);
+            log.log(Level.INFO, "File {0} uploaded to {1}", new Object[]{strFilename,strPath});
 
             HttpSession session = request.getSession();
-            //String strUsername = request.getParameter("txtEmail");
-            //String strPassword = request.getParameter("txtPassword");
+            int Cnt = 1;
+            String iCnt = String.valueOf(Cnt);
+            HashMap<String, String> key = clsXmlProcessor.fnProcessXPath(iCnt);
+            log.info("key size " + key.size());
+            request.setAttribute("key", key);
 
-            //log.info("Login " + strUsername + " " + strPassword);
-            //webdmiDao.fnLogin(strUsername, strPassword);
             //session.setAttribute("employee", null);
-
             request.getRequestDispatcher("/SolutionsDepartment_1.jsp").forward(request, response);
         } catch (FileNotFoundException fne) {
             log.info("ERROR: " + fne.getMessage());

@@ -5,11 +5,19 @@
  */
 package com.webapp.webdmi.platform;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
@@ -41,12 +49,19 @@ public class clsXmlProcessor {
         DocumentBuilder documentBuilder = null;
         Document xmlDocument = null;
         Element elemProductBacklog = null;
+        Path pathToFile = null;
+        DataInputStream in = null;
 
         try {
+            pathToFile = Paths.get("../webapps/cardlayoutweb/ProductBacklog.xml");
+            log.info("pathToFile=" + pathToFile.toAbsolutePath().toString());
+
             dbFactory = DocumentBuilderFactory.newInstance();
             documentBuilder = dbFactory.newDocumentBuilder();
             //xmlDocument = documentBuilder.parse(new File("ProductBacklog.xml"));
-            xmlDocument = documentBuilder.parse(clsXmlProcessor.class.getClassLoader().getResourceAsStream("ProductBacklog.xml"));
+            //BufferedInputStream in = new BufferedInputStream(clsXmlProcessor.class.getClassLoader().getResourceAsStream("ProductBacklog.xml"));
+            in = new DataInputStream(new BufferedInputStream(new FileInputStream(pathToFile.toAbsolutePath().toString())));
+            xmlDocument = documentBuilder.parse(in);
             elemProductBacklog = xmlDocument.getDocumentElement();
         } catch(Exception e) {
             xmlDocument = documentBuilder.newDocument();
@@ -212,8 +227,13 @@ public class clsXmlProcessor {
                 attrNewsletters.appendChild(xmlDocument.createTextNode(rdoNewsletters));
                 elemNewsletters.setAttributeNode(attrNewsletters);
 
+                DataOutputStream out = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(pathToFile.toAbsolutePath().toString())));
                 Transformer transformer = TransformerFactory.newInstance().newTransformer();
-                transformer.transform(new DOMSource(xmlDocument), new StreamResult(new File("ProductBacklog.xml")));
+                //transformer.transform(new DOMSource(xmlDocument), new StreamResult(new File("ProductBacklog.xml")));
+                transformer.transform(new DOMSource(xmlDocument), new StreamResult(out));
+
+                in.close();
+                out.close();
             } catch(Exception e) {
                 e.printStackTrace();
             }
@@ -225,6 +245,9 @@ public class clsXmlProcessor {
      */
     public static HashMap fnProcessXPath(String iCnt) {
         HashMap<String, String> key = new HashMap<>();
+        DataInputStream in = null;
+        Path pathToFile = null;
+
         try {
             log.info("iCnt: " + iCnt);
             key.put("iCntVal", iCnt);
@@ -245,7 +268,12 @@ public class clsXmlProcessor {
                 //xmlDocument = documentBuilder.parse(scanner.next());
             //}
             
-            xmlDocument = documentBuilder.parse(clsXmlProcessor.class.getClassLoader().getResourceAsStream("ProductBacklog.xml"));
+            pathToFile = Paths.get("../webapps/cardlayoutweb/ProductBacklog.xml");
+            log.info("pathToFile=" + pathToFile.toAbsolutePath().toString());
+            in = new DataInputStream(new BufferedInputStream(new FileInputStream(pathToFile.toAbsolutePath().toString())));
+            //BufferedInputStream in = new BufferedInputStream(clsXmlProcessor.class.getClassLoader().getResourceAsStream("ProductBacklog.xml"));
+            xmlDocument = documentBuilder.parse(in);
+            //xmlDocument = documentBuilder.parse(clsXmlProcessor.class.getClassLoader().getResourceAsStream("ProductBacklog.xml"));
             xpath = XPathFactory.newInstance().newXPath();
 
             String strFirstName = "/ProductBacklog/SNo[@cnt=" + iCnt + "]/FirstName";
@@ -353,6 +381,7 @@ public class clsXmlProcessor {
             log.info("strFirstName=" + key.get("strFirstName"));
             log.info("strAddress=" + key.get("strAddress"));
             
+            in.close();
         } catch(Exception e) {
             e.printStackTrace();
         } finally {
@@ -367,31 +396,47 @@ public class clsXmlProcessor {
         String iCnt = key.get("iCntVal");
         log.info("fnProcessSolution iCnt: " + iCnt);
 
+        DocumentBuilderFactory dbFactoryPieChart = null;
+        DocumentBuilder documentBuilderPieChart = null;
+        Path pathToFilePieChart = null;
+        Document xmlDocumentPieChart = null;
+        Element elemPieChartData = null;
+
         DocumentBuilderFactory dbFactory = null;
         DocumentBuilder documentBuilder = null;
+        Path pathToFile = null;
         Document xmlDocument = null;
         Element elemSolutionDescription = null;
         Node nodeSNo = null;
         Element elemSNo = null;
 
-        Document xmlDocumentPieChart = null;
-        Element elemPieChartData = null;
-
+        DataInputStream inPieChart = null;
         try {
-            dbFactory = DocumentBuilderFactory.newInstance();
-            documentBuilder = dbFactory.newDocumentBuilder();
-            //xmlDocumentPieChart = documentBuilder.parse(new File("PieChartData.xml"));
-            xmlDocumentPieChart = documentBuilder.parse(clsXmlProcessor.class.getClassLoader().getResourceAsStream(("PieChartData.xml")));
+            pathToFilePieChart = Paths.get("../webapps/cardlayoutweb/PieChartData.xml");
+            log.info("pathToFilePieChart=" + pathToFilePieChart.toAbsolutePath().toString());
+            inPieChart = new DataInputStream(new BufferedInputStream(new FileInputStream(pathToFilePieChart.toAbsolutePath().toString())));
+
+            dbFactoryPieChart = DocumentBuilderFactory.newInstance();
+            documentBuilderPieChart = dbFactoryPieChart.newDocumentBuilder();
+            //xmlDocumentPieChart = documentBuilderPieChart.parse(new File("PieChartData.xml"));
+            xmlDocumentPieChart = documentBuilderPieChart.parse(inPieChart);
+            //xmlDocumentPieChart = documentBuilderPieChart.parse(clsXmlProcessor.class.getClassLoader().getResourceAsStream(("PieChartData.xml")));
             elemPieChartData = xmlDocumentPieChart.getDocumentElement();
         } catch(Exception e) {
-            xmlDocumentPieChart = documentBuilder.newDocument();
+            xmlDocumentPieChart = documentBuilderPieChart.newDocument();
             elemPieChartData = xmlDocumentPieChart.createElement("PieChartData");
             xmlDocumentPieChart.appendChild(elemPieChartData);
             e.printStackTrace();
         } finally {
             try {
-                //xmlDocument = documentBuilder.parse(new File("ProductBacklog.xml"));
-                xmlDocument = documentBuilder.parse(clsXmlProcessor.class.getClassLoader().getResourceAsStream(("ProductBacklog.xml")));
+                dbFactory = DocumentBuilderFactory.newInstance();
+                documentBuilder = dbFactory.newDocumentBuilder();
+                pathToFile = Paths.get("../webapps/cardlayoutweb/ProductBacklog.xml");
+                log.info("pathToFile=" + pathToFile.toAbsolutePath().toString());
+                DataInputStream in = new DataInputStream(new BufferedInputStream(new FileInputStream(pathToFile.toAbsolutePath().toString())));
+                 //xmlDocument = documentBuilder.parse(new File("ProductBacklog.xml"));
+                xmlDocument = documentBuilder.parse(in);
+                //xmlDocument = documentBuilder.parse(clsXmlProcessor.class.getClassLoader().getResourceAsStream(("ProductBacklog.xml")));
                 XPath xpath = XPathFactory.newInstance().newXPath();
 
                 //new <SNo><SolutionDescription>, increment <SolvedCnt>
@@ -428,11 +473,20 @@ public class clsXmlProcessor {
                 elemSolutionDescription.appendChild(xmlDocument.createTextNode(strSolutionDescriptionVal));
                 elemSNo.appendChild(elemSolutionDescription);
 
+                DataOutputStream out = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(pathToFile.toAbsolutePath().toString())));
                 Transformer transformer = TransformerFactory.newInstance().newTransformer();
-                transformer.transform(new DOMSource(xmlDocument), new StreamResult(new File("ProductBacklog.xml")));
+                //transformer.transform(new DOMSource(xmlDocument), new StreamResult(new File("ProductBacklog.xml")));
+                transformer.transform(new DOMSource(xmlDocument), new StreamResult(out));
 
+                DataOutputStream outPieChart = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(pathToFilePieChart.toAbsolutePath().toString())));
                 Transformer transformerPieChart = TransformerFactory.newInstance().newTransformer();
-                transformerPieChart.transform(new DOMSource(xmlDocumentPieChart), new StreamResult(new File("PieChartData.xml")));
+                //transformerPieChart.transform(new DOMSource(xmlDocumentPieChart), new StreamResult(new File("PieChartData.xml")));
+                transformerPieChart.transform(new DOMSource(xmlDocumentPieChart), new StreamResult(outPieChart));
+
+                inPieChart.close();
+                outPieChart.close();
+                in.close();
+                out.close();
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {

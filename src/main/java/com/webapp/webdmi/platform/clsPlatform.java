@@ -5,14 +5,18 @@
  */
 package com.webapp.webdmi.platform;
 
+import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 //import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.util.Map;
 import java.util.Properties;
 
-import static java.lang.System.out;
 import java.util.logging.Logger;
 
 /**
@@ -27,6 +31,11 @@ public class clsPlatform {
     
     public clsPlatform() throws IOException, FileNotFoundException {
         try {
+            log.info("clsPlatform");
+
+            //Path path = FileSystems.getDefault().getPath("application.properties");
+            //log.info(path.toString());
+
             //1a. The application uses System.getenv to retrieve environment variable values.
             Map<String,String> env = System.getenv();
             for (String envName : env.keySet()) {
@@ -49,18 +58,20 @@ public class clsPlatform {
             }
             
             //User variable applicationProps D:\downloads\NetBeansProjects\JavaWorkshop\build\classes\resources\
-            String strEnvnameapplicationprops = env.get(strEnv);
-/*
+            //String strEnvnameapplicationprops = env.get(strEnv);
+            String strEnvnameapplicationprops = System.getenv(strEnv);
+
             //2a. The application loads the default properties from a well-known location.
             String strApplicationpropspath = strEnvnameapplicationprops + "application.properties";
             FileInputStream in = new FileInputStream(strApplicationpropspath);
             // create and load default properties
             Properties defaultProps = new Properties();
             defaultProps.load(in);
+            //defaultProps.loadFromXML(in);
             log.info("defaultProps.size:" + defaultProps.size());
             //out.println(defaultProps.size());
             in.close();
-
+/*
             //2b. The application loads the properties that were saved from the last time the application was run.
             String strProductbacklogpath = strEnvnameapplicationprops + "properties.xml";
             //<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
