@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.webapp.webdmi.platform;
+import com.webapp.webdmi.dao.webdmiDao;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -231,7 +232,9 @@ public class clsXmlProcessor {
                 Transformer transformer = TransformerFactory.newInstance().newTransformer();
                 //transformer.transform(new DOMSource(xmlDocument), new StreamResult(new File("ProductBacklog.xml")));
                 transformer.transform(new DOMSource(xmlDocument), new StreamResult(out));
-                new clsEncryptFile();
+                //new clsEncryptFile();
+                //webdmiDao.fnEncryptFile();
+                webdmiDao.fnEncryptRsaFile();
 
                 in.close();
                 out.close();
@@ -478,7 +481,9 @@ public class clsXmlProcessor {
                 Transformer transformer = TransformerFactory.newInstance().newTransformer();
                 //transformer.transform(new DOMSource(xmlDocument), new StreamResult(new File("ProductBacklog.xml")));
                 transformer.transform(new DOMSource(xmlDocument), new StreamResult(out));
-                new clsEncryptFile();
+                //new clsEncryptFile();
+                //webdmiDao.fnEncryptFile();
+                webdmiDao.fnEncryptRsaFile();
 
                 DataOutputStream outPieChart = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(pathToFilePieChart.toAbsolutePath().toString())));
                 Transformer transformerPieChart = TransformerFactory.newInstance().newTransformer();

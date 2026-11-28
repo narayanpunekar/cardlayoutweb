@@ -6,6 +6,8 @@
 package com.webapp.webdmi.dao;
 
 import com.webapp.webdmi.platform.clsPlatform;
+import com.webapp.webdmi.platform.clsEncryptFile;
+import com.webapp.webdmi.platform.clsEncryptRsaFile;
 import java.util.Scanner;
 
 import static java.lang.System.out;
@@ -58,6 +60,36 @@ public class webdmiDao {
         try {
             //clsXmlProcessor.fnProcessRequest(strFirstName, strLastName);
             log.info("fnProductBacklog");
+        } catch (Exception e) {
+            log.info("Exception" + e.toString());
+            log.warning("Exception" + e.toString());
+            e.printStackTrace();
+            throw new ExceptionInInitializerError(e.toString());
+        }
+    }
+
+    /**
+     * 
+    */
+    public static void fnEncryptFile() {
+        try {
+            new clsEncryptFile();
+            log.info("fnEncryptFile");
+        } catch (Exception e) {
+            log.info("Exception" + e.toString());
+            log.warning("Exception" + e.toString());
+            e.printStackTrace();
+            throw new ExceptionInInitializerError(e.toString());
+        }
+    }
+
+    /**
+     * 
+    */
+    public static void fnEncryptRsaFile() {
+        try {
+            new clsEncryptRsaFile();
+            log.info("fnEncryptRsaFile");
         } catch (Exception e) {
             log.info("Exception" + e.toString());
             log.warning("Exception" + e.toString());
